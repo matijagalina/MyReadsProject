@@ -10,7 +10,9 @@ class BooksApp extends React.Component {
   }
 
   render() {
-
+    BooksAPI.getAll().then(response => response.filter(item =>
+      item.shelf === 'currentlyReading'
+    )).then(data => console.log(data))
     return (
       <div className="app">
         <Route path="/add-book" render={({ history }) => (
