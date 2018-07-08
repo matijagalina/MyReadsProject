@@ -10,6 +10,8 @@ class BooksApp extends React.Component {
 
   }
 
+  listNames = ['Currently reading', 'Want to read', 'Read']
+
   render() {
     BooksAPI.getAll().then(response => response.filter(item =>
       item.shelf === 'currentlyReading'
@@ -26,9 +28,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookList/>
-                <BookList/>
-                <BookList/>
+                <BookList listName={this.listNames[0]}/>
+                <BookList listName={this.listNames[1]}/>
+                <BookList listName={this.listNames[2]}/>
               </div>
             </div>
             <div className="open-search">
