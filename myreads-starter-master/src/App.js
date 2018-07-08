@@ -1,5 +1,4 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchBook from './SearchBook'
 import BookList from './BookList'
@@ -11,11 +10,10 @@ class BooksApp extends React.Component {
   }
 
   listNames = ['Currently reading', 'Want to read', 'Read']
+  shelfNames= ['currentlyReading', 'wantToRead', 'read']
 
   render() {
-    BooksAPI.getAll().then(response => response.filter(item =>
-      item.shelf === 'currentlyReading'
-    )).then(data => console.log(data))
+
     return (
       <div className="app">
         <Route path="/add-book" render={({ history }) => (
@@ -28,9 +26,11 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookList listName={this.listNames[0]}/>
-                <BookList listName={this.listNames[1]}/>
-                <BookList listName={this.listNames[2]}/>
+                {
+                  this.shelfNames.map((item, index) =>
+                    <BookList key={index} listName={this.listNames[index]} shelfName={item}/>
+                  )
+                }
               </div>
             </div>
             <div className="open-search">
