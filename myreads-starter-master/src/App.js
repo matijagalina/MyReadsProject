@@ -1,5 +1,5 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
+// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchBook from './SearchBook'
 import Book from './Book'
@@ -24,7 +24,7 @@ class BooksApp extends React.Component {
         <Route path="/search" render={({ history }) => (
           <SearchBook/>
         )} />
-        <Route exact path='/' render={({}) => (
+        <Route exact path='/' render={({history}) => (
           <div className="list-books">
             <div className="list-books-title">
               <h1>MyReads</h1>
