@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
+import Book from './Book'
 
 class SearchBook extends Component {
 
   state = {
-    query: ''
+    query: '',
+    books: []
   };
 
   handleInput(value) {
     this.setState({
-      query: value.trim()
+      query: value.trim(),
     });
+    this.setBooksState();
+  }
+
+  setBooksState() {
+    if (!!this.state.query) {
+      BooksAPI.search(this.state.query).then(data => this.setState(state => ({
+        books: data
+      })));
+    }
   }
 
   render() {
+
+    const {query, books} = this.state;
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -22,14 +37,16 @@ class SearchBook extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              value={this.state.query}
+              value={query}
               onChange={(event) => this.handleInput(event.target.value)} />
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
             {
-
+              books.map((book, index) => (
+                <Book key={index} book={book} />
+              ))
             }
           </ol>
         </div>
