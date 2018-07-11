@@ -4,15 +4,23 @@ import './App.css'
 import SearchBook from './SearchBook'
 // import Book from './Book'
 import { Route, Link } from 'react-router-dom'
+// import Book from './Book';
 
 class BooksApp extends React.Component {
   state = {
-
+    books: []
   }
 
-  // book = {
-  //   id: 'nggnmAEACAAJ'
-  // }
+  saveShelfChange(bookId, shelf) {
+    console.log(bookId);
+    console.log(shelf);
+    this.setState(state => ({
+      books : state.books.concat([{
+        book: bookId,
+        shelf: shelf
+      }])
+    }))
+  }
 
   render() {
 
@@ -22,7 +30,9 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path="/search" render={({ history }) => (
-          <SearchBook/>
+          <SearchBook
+            shelfUpdate={(bookId, shelf) => this.saveShelfChange(bookId, shelf)}
+          />
         )} />
         <Route exact path='/' render={({history}) => (
           <div className="list-books">

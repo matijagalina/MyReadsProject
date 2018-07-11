@@ -7,9 +7,7 @@ class Book extends Component {
   }
 
   handleChange(value) {
-    this.setState({
-      shelf: value
-    });
+    this.props.sendShelfChange(this.props.book, value);
   }
 
   render() {

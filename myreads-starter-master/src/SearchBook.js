@@ -25,6 +25,10 @@ class SearchBook extends Component {
     }
   }
 
+  sendShelfChange(bookId, shelf) {
+    this.props.shelfUpdate(bookId, shelf)
+  }
+
   render() {
 
     const {query, books} = this.state;
@@ -45,7 +49,7 @@ class SearchBook extends Component {
           <ol className="books-grid">
             {
               !!query && books.map((book, index) => (
-                <Book key={index} book={book} />
+                <Book key={index} book={book} sendShelfChange={(book, shelf) => {this.sendShelfChange(book.id, shelf)}} />
               ))
             }
           </ol>
