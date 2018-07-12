@@ -19,6 +19,10 @@ class BookShelf extends Component {
 
   render() {
 
+    if (this.state.books.length === 0) {
+      return null;
+    }
+
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{this.props.title}</h2>

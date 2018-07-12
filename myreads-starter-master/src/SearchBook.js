@@ -12,15 +12,25 @@ class SearchBook extends Component {
 
   handleInput(value) {
     this.setState({
-      query: value.trim(),
+      query: value.trim()
     });
+    this.setBookState();
   }
 
-  componentDidMount() {
+  setBookState() {
     if (!!this.state.query) {
-      BooksAPI.search(this.state.query).then(data => this.setState(state => ({
-        books: data
-      })));
+      BooksAPI.search(this.state.query).then(data => {
+        if (!!data.error) {
+          console.log(data.error)
+        } else {
+          console.log(data)
+          console.log(this.state.query)
+          this.setState(state => ({
+            books: data
+          }))
+        }
+      }
+      )
     }
   }
 
@@ -43,7 +53,7 @@ class SearchBook extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {
-              !!query && books.map((book, index) => (
+              (!!query && books.length !== 0) && books.map((book, index) => (
                 <Book key={index} book={book} />
               ))
             }

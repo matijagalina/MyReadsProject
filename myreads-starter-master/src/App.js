@@ -10,11 +10,10 @@ class BooksApp extends React.Component {
     books: []
   }
 
-  componentWillMount() {
+  componentDidMount() {
     BooksAPI.getAll().then(data => this.setState({
       books: data
-    })
-    )
+    }))
   }
 
   render() {
