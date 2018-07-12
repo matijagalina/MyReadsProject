@@ -14,10 +14,9 @@ class SearchBook extends Component {
     this.setState({
       query: value.trim(),
     });
-    this.setBooksState();
   }
 
-  setBooksState() {
+  componentDidMount() {
     if (!!this.state.query) {
       BooksAPI.search(this.state.query).then(data => this.setState(state => ({
         books: data
@@ -25,9 +24,6 @@ class SearchBook extends Component {
     }
   }
 
-  sendShelfChange(bookId, shelf) {
-    this.props.shelfUpdate(bookId, shelf)
-  }
 
   render() {
 
@@ -49,7 +45,7 @@ class SearchBook extends Component {
           <ol className="books-grid">
             {
               !!query && books.map((book, index) => (
-                <Book key={index} book={book} sendShelfChange={(book, shelf) => { this.sendShelfChange(book, shelf) }} />
+                <Book key={index} book={book} />
               ))
             }
           </ol>

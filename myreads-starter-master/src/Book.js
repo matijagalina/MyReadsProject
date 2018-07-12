@@ -2,17 +2,12 @@ import React, { Component } from 'react';
 
 class Book extends Component {
 
-  handleChange(value) {
-    this.props.sendShelfChange(this.props.book, value);
-  }
-
   render() {
     return (
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover">
-              <img src={this.props.book.imageLinks.smallThumbnail} style={{ width: 128, height: 193 }} alt={this.props.book.title} />
+            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.book.imageLinks.smallThumbnail})` }}>
             </div>
             <div className="book-shelf-changer">
               <select
