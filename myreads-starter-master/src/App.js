@@ -1,5 +1,5 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
+// import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchBook from './SearchBook'
 import { Route, Link } from 'react-router-dom'
@@ -11,12 +11,14 @@ class BooksApp extends React.Component {
   }
 
   saveShelfChange(bookId, shelf) {
-    this.setState(state => ({
-      books: state.books.concat([{
-        book: bookId,
-        shelf: shelf
-      }])
-    }))
+    this.setState(state => (
+      {
+        books: state.books.concat([{
+          book: bookId,
+          shelf: shelf
+        }])
+      }
+    ))
   }
 
 
