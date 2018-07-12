@@ -7,14 +7,17 @@ class BookShelf extends Component {
 
   books = [];
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.books.map(item => (
       BooksAPI.get(item.book).then(data => this.books.push(data))
     ))
   }
 
+  sendShelfChange(bookId, shelf) {
+    this.props.shelfUpdate(bookId, shelf)
+  }
+
   render() {
-    console.log(this.books)
 
     return (
       <div className="bookshelf">
@@ -23,7 +26,7 @@ class BookShelf extends Component {
           <ol className="books-grid">
             {
               this.books.map((item, index) => (
-                <Book key={index} book={item} />
+                <Book key={index} book={item} endShelfChange={(book, shelf) => {this.sendShelfChange(book.id, shelf)}}/>
               ))
             }
           </ol>

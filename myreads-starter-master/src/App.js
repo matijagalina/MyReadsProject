@@ -37,9 +37,6 @@ class BooksApp extends React.Component {
 
   render() {
 
-    // BooksAPI.getAll().then(data => console.log(data))
-    // BooksAPI.update(this.book, 'read').then(data => console.log(data))
-
     return (
       <div className="app">
         <Route path="/search" render={({ history }) => (
@@ -54,32 +51,27 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {/* {
-                        this.state.bookFiles.map((item, index) => (
-                          <Book key={index} book={item} />
-                        ))
-                      } */}
-                    </ol>
-                  </div>
-                </div>
                 <BookShelf
-                title="Want to Read"
-                books = {
-                  this.state.books.filter(item => (item.shelf === 'wantToRead' ))
-                }
+                  title="Currently Reading"
+                  books={
+                    this.state.books.filter(item => (item.shelf === 'currentlyRead'))
+                  }
+                  shelfUpdate={(bookId, shelf) => this.saveShelfChange(bookId, shelf)}
                 />
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-
-                    </ol>
-                  </div>
-                </div>
+                <BookShelf
+                  title="Want to Read"
+                  books={
+                    this.state.books.filter(item => (item.shelf === 'wantToRead'))
+                  }
+                  shelfUpdate={(bookId, shelf) => this.saveShelfChange(bookId, shelf)}
+                />
+                <BookShelf
+                  title="Read"
+                  books={
+                    this.state.books.filter(item => (item.shelf === 'read'))
+                  }
+                  shelfUpdate={(bookId, shelf) => this.saveShelfChange(bookId, shelf)}
+                />
               </div>
             </div>
             <div className="open-search">
