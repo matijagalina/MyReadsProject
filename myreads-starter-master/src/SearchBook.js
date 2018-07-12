@@ -12,7 +12,7 @@ class SearchBook extends Component {
 
   handleInput(value) {
     this.setState({
-      query: value.trim()
+      query: value
     });
     this.setBookState();
   }
