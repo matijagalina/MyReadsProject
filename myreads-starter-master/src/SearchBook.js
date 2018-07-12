@@ -14,14 +14,16 @@ class SearchBook extends Component {
     this.setState({
       query: value
     });
-    this.setBookState();
   }
 
-  setBookState() {
+  componentWillUpdate() {
     if (!!this.state.query) {
       BooksAPI.search(this.state.query).then(data => {
         if (!!data.error) {
           console.log(data.error)
+          this.setState({
+            books: []
+          });
         } else {
           console.log(data)
           console.log(this.state.query)
@@ -29,8 +31,7 @@ class SearchBook extends Component {
             books: data
           }))
         }
-      }
-      )
+      })
     }
   }
 
