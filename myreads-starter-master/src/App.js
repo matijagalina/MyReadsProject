@@ -11,18 +11,18 @@ class BooksApp extends React.Component {
       currentlyReading: [],
       wantToRead: [],
       read: []
-    }
+    },
+    boks: []
+  }
+
+  componentWillMount() {
+    BooksAPI.getAll().then(data => this.setState({
+      boks: data
+    })
+  )
   }
 
   saveShelfChange(book, shelf) {
-    // this.setState(state => (
-    //   {
-    //     books: state.books.concat([{
-    //       book: bookId,
-    //       shelf: shelf
-    //     }])
-    //   }
-    // ))
     BooksAPI.update(book, shelf).then(data => this.setState({
       books: data
     }))
@@ -31,7 +31,7 @@ class BooksApp extends React.Component {
 
   render() {
 
-    console.log(this.state.books)
+    console.log(this.state.boks)
 
     return (
       <div className="app">
