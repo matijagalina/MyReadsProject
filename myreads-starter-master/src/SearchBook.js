@@ -49,7 +49,7 @@ class SearchBook extends Component {
           <ol className="books-grid">
             {
               !!query && books.map((book, index) => (
-                <Book key={index} book={book} sendShelfChange={(book, shelf) => { this.sendShelfChange(book.id, shelf) }} />
+                <Book key={index} book={book} sendShelfChange={(book, shelf) => { this.sendShelfChange(book, shelf) }} />
               ))
             }
           </ol>

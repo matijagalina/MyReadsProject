@@ -16,12 +16,12 @@ class Book extends Component {
         <div className="book">
           <div className="book-top">
             <div className="book-cover">
-            <img src={this.props.book.imageLinks.smallThumbnail} style={{ width: 128, height: 193 }} alt={this.props.book.title}/>
+              <img src={this.props.book.imageLinks.smallThumbnail} style={{ width: 128, height: 193 }} alt={this.props.book.title} />
             </div>
             <div className="book-shelf-changer">
               <select
-              value={this.state.shelf || "none"}
-              onChange={(event) => this.handleChange(event.target.value)} >
+                value={this.state.shelf || "none"}
+                onChange={(event) => this.handleChange(event.target.value)} >
                 <option value="move" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
@@ -32,7 +32,7 @@ class Book extends Component {
           </div>
           <div className="book-title">{this.props.book.title}</div>
           <div className="book-authors">
-          {this.props.book.authors}
+            {this.props.book.authors}
           </div>
         </div>
       </li>

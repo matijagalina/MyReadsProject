@@ -6,12 +6,12 @@ import * as BooksAPI from './BooksAPI'
 class BookShelf extends Component {
 
   state = {
-    books : []
+    books: []
   }
 
   componentDidMount() {
     this.props.books.map(item => (
-      BooksAPI.get(item.book).then(data => this.setState(state => ({
+      BooksAPI.get(item).then(data => this.setState(state => ({
         books: state.books.concat([data])
       })))
     ))
@@ -29,8 +29,8 @@ class BookShelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {
-             this.state.books.length > 0 && this.state.books.map((item, index) => (
-                <Book key={index} book={item} sendShelfChange={(book, shelf) => {this.sendShelfChange(book.id, shelf)}}/>
+              this.state.books.length > 0 && this.state.books.map((item, index) => (
+                <Book key={index} book={item} sendShelfChange={(book, shelf) => { this.sendShelfChange(book.id, shelf) }} />
               ))
             }
           </ol>
