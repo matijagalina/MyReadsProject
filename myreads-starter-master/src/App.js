@@ -7,31 +7,16 @@ import BookShelf from './BookShelf';
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
-    bookFiles: []
+    books: []
   }
 
   saveShelfChange(bookId, shelf) {
-    console.log(bookId);
-    console.log(shelf);
     this.setState(state => ({
       books: state.books.concat([{
         book: bookId,
         shelf: shelf
       }])
     }))
-  }
-
-  getBooks() {
-    this.state.books.map(item => (
-      BooksAPI.get(item.book).then(data => this.setState(state => ({
-        bookFiles: state.bookFiles.concat([data])
-      })))
-    ))
-  }
-
-  componentDidMount() {
-    this.getBooks()
   }
 
 
@@ -54,7 +39,7 @@ class BooksApp extends React.Component {
                 <BookShelf
                   title="Currently Reading"
                   books={
-                    this.state.books.filter(item => (item.shelf === 'currentlyRead'))
+                    this.state.books.filter(item => (item.shelf === 'currentlyReading'))
                   }
                   shelfUpdate={(bookId, shelf) => this.saveShelfChange(bookId, shelf)}
                 />
