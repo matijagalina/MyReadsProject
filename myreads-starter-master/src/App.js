@@ -7,37 +7,26 @@ import BookShelf from './BookShelf';
 
 class BooksApp extends React.Component {
   state = {
-    books: {
-      currentlyReading: [],
-      wantToRead: [],
-      read: []
-    },
-    boks: []
+    books: []
   }
 
   componentWillMount() {
     BooksAPI.getAll().then(data => this.setState({
-      boks: data
-    })
-  )
-  }
-
-  saveShelfChange(book, shelf) {
-    BooksAPI.update(book, shelf).then(data => this.setState({
       books: data
-    }))
+    })
+    )
   }
-
 
   render() {
 
-    console.log(this.state.boks)
+    if (this.state.books.length === 0) {
+      return null;
+    }
 
     return (
       <div className="app">
         <Route path="/search" render={({ history }) => (
           <SearchBook
-            shelfUpdate={(book, shelf) => this.saveShelfChange(book, shelf)}
           />
         )} />
         <Route exact path='/' render={({ history }) => (
@@ -50,23 +39,20 @@ class BooksApp extends React.Component {
                 <BookShelf
                   title="Currently Reading"
                   books={
-                    this.state.books.currentlyReading.filter(item => item)
+                    this.state.books.filter(item => item.shelf === 'currentlyReading')
                   }
-                  shelfUpdate={(bookId, shelf) => this.saveShelfChange(bookId, shelf)}
                 />
                 <BookShelf
                   title="Want to Read"
                   books={
-                    this.state.books.wantToRead.filter(item => item)
+                    this.state.books.filter(item => item.shelf === 'wantToRead')
                   }
-                  shelfUpdate={(bookId, shelf) => this.saveShelfChange(bookId, shelf)}
                 />
                 <BookShelf
                   title="Read"
                   books={
-                    this.state.books.read.filter(item => item)
+                    this.state.books.filter(item => item.shelf === 'read')
                   }
-                  shelfUpdate={(bookId, shelf) => this.saveShelfChange(bookId, shelf)}
                 />
               </div>
             </div>
