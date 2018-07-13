@@ -17,6 +17,10 @@ class SearchBook extends Component {
     this.fetchBooks()
   }
 
+  sendShelfChange(book, shelf) {
+    this.props.sendShelfChange(book, shelf)
+  }
+
   fetchBooks() {
     if (!!this.state.query) {
       BooksAPI.search(this.state.query).then(data => {
@@ -55,7 +59,7 @@ class SearchBook extends Component {
           <ol className="books-grid">
             {
               (!!query && books.length !== 0) && books.map((book, index) => (
-                <Book key={index} book={book} />
+                <Book key={index} book={book} sendShelfChange={(book, shelf) => {this.sendShelfChange(book, shelf)}}/>
               ))
             }
           </ol>

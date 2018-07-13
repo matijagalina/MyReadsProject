@@ -17,6 +17,10 @@ class BookShelf extends Component {
     ))
   }
 
+  sendShelfChange(book, shelf) {
+    this.props.sendShelfChange(book, shelf)
+  }
+
   render() {
 
     if (this.state.books.length === 0) {
@@ -30,7 +34,7 @@ class BookShelf extends Component {
           <ol className="books-grid">
             {
               this.state.books.length > 0 && this.state.books.map((item, index) => (
-                <Book key={index} book={item} />
+                <Book key={index} book={item} sendShelfChange={(book, shelf) => {this.sendShelfChange(book, shelf)}}/>
               ))
             }
           </ol>
