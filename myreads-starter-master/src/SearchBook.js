@@ -14,22 +14,22 @@ class SearchBook extends Component {
     this.setState({
       query: value
     });
+    this.fetchBooks()
   }
 
-  componentWillUpdate() {
+  fetchBooks() {
     if (!!this.state.query) {
       BooksAPI.search(this.state.query).then(data => {
         if (!!data.error) {
-          console.log(data.error)
           this.setState({
             books: []
           });
         } else {
-          console.log(data)
-          console.log(this.state.query)
-          this.setState(state => ({
-            books: data
-          }))
+          data.map(item => (
+            BooksAPI.get(item.id).then(data => this.setState(state => ({
+              books: state.books.concat([data])
+            })))
+          ))
         }
       })
     }
