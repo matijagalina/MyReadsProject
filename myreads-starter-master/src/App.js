@@ -11,19 +11,24 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then(data => this.setState({
-      books: data
-    }))
+    BooksAPI.getAll()
+      .then(data => this.setState({
+        books: data
+      }))
+      .then(localStorage.setItem('my-reads.books', JSON.stringify(this.state.books)))
+  }
+
+  handleShelfChangeFromSearch(book, shelf) {
+    BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf;
+      this.setState(state => ({
+        books: state.books.filter(item => item.id !== book.id).concat([book])
+      }))
+    })
   }
 
   handleShelfChange(book, shelf) {
-    if (this.state.books.length > 0) {
-      BooksAPI.update(book,shelf).then(() => {
-        this.setState(state => ({
-          books: state.books.filter(item => item.id !== book.id).concat([ book ])
-        }))
-      })
-    }
+
   }
 
   render() {
@@ -36,7 +41,7 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route path="/search" render={({ history }) => (
           <SearchBook
-          sendShelfChange={(book, shelf) => {this.handleShelfChange(book, shelf)}}
+            sendShelfChange={(book, shelf) => { this.handleShelfChangeFromSearch(book, shelf) }}
           />
         )} />
         <Route exact path='/' render={({ history }) => (
@@ -51,21 +56,21 @@ class BooksApp extends React.Component {
                   books={
                     this.state.books.filter(item => item.shelf === 'currentlyReading')
                   }
-                  sendShelfChange={(book, shelf) => {this.handleShelfChange(book, shelf)}}
+                  sendShelfChange={(book, shelf) => { this.handleShelfChange(book, shelf) }}
                 />
                 <BookShelf
                   title="Want to Read"
                   books={
                     this.state.books.filter(item => item.shelf === 'wantToRead')
                   }
-                  sendShelfChange={(book, shelf) => {this.handleShelfChange(book, shelf)}}
+                  sendShelfChange={(book, shelf) => { this.handleShelfChange(book, shelf) }}
                 />
                 <BookShelf
                   title="Read"
                   books={
                     this.state.books.filter(item => item.shelf === 'read')
                   }
-                  sendShelfChange={(book, shelf) => {this.handleShelfChange(book, shelf)}}
+                  sendShelfChange={(book, shelf) => { this.handleShelfChange(book, shelf) }}
                 />
               </div>
             </div>

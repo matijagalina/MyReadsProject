@@ -8,30 +8,24 @@ class Book extends Component {
 
   render() {
 
+    let bookCover;
+    if (!!this.props.book) {
+      bookCover = this.props.book.imageLinks.smallThumbnail;
+    } else {
+      bookCover = "url('http://via.placeholder.com/193x128')";
+    }
+
     return (
       <li>
         <div className="book">
           <div className="book-top">
-          {
-            typeof this.props.book.imageLinks !== "undefined" &&
             <div className="book-cover" style={{
               width: 128,
               height: 193,
-              backgroundImage: `url(${this.props.book.imageLinks.smallThumbnail})`
+              backgroundImage: `url(${bookCover})`
             }}
             >
             </div>
-          }
-          {
-            typeof this.props.book.imageLinks === "undefined" &&
-            <div className="book-cover" style={{
-              width: 128,
-              height: 193,
-              backgroundImage: "url('http://via.placeholder.com/193x128')"
-            }}
-            >
-            </div>
-          }
             <div className="book-shelf-changer">
               <select
                 value={this.props.book.shelf || "none"}
