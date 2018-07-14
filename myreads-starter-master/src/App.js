@@ -7,7 +7,8 @@ import BookShelf from './BookShelf';
 
 class BooksApp extends React.Component {
   state = {
-    books: []
+    books: [],
+    query: ''
   }
 
   componentDidMount() {
@@ -18,17 +19,16 @@ class BooksApp extends React.Component {
       .then(localStorage.setItem('my-reads.books', JSON.stringify(this.state.books)))
   }
 
-  handleShelfChangeFromSearch(book, shelf) {
-    BooksAPI.update(book, shelf).then(() => {
-      book.shelf = shelf;
-      this.setState(state => ({
-        books: state.books.filter(item => item.id !== book.id).concat([book])
-      }))
-    })
-  }
+
 
   handleShelfChange(book, shelf) {
-
+    BooksAPI.update(book, shelf)
+      .then(() => {
+        book.shelf = shelf;
+        this.setState(state => ({
+          books: state.books.filter(item => item.id !== book.id).concat([book])
+        }))
+      })
   }
 
   render() {
@@ -41,7 +41,11 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route path="/search" render={({ history }) => (
           <SearchBook
-            sendShelfChange={(book, shelf) => { this.handleShelfChangeFromSearch(book, shelf) }}
+          searchedValue = {(value) => this.setState({
+            query: value
+          })}
+          query = {this.state.query}
+          sendShelfChange={(book, shelf) => { this.handleShelfChange(book, shelf) }}
           />
         )} />
         <Route exact path='/' render={({ history }) => (
