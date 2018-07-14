@@ -16,7 +16,6 @@ class BooksApp extends React.Component {
       .then(data => this.setState({
         books: data
       }))
-      .then(localStorage.setItem('my-reads.books', JSON.stringify(this.state.books)))
   }
 
 
