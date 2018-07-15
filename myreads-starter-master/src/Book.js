@@ -9,22 +9,22 @@ class Book extends Component {
   render() {
 
     let bookCover;
-    if (!!this.props.book) {
+    if (!!this.props.book.imageLinks) {
       bookCover = this.props.book.imageLinks.smallThumbnail;
     } else {
       bookCover = "url('http://via.placeholder.com/193x128')";
+    }
+    const style={
+      width: 128,
+      height: 193,
+      backgroundImage: `url(${bookCover})`
     }
 
     return (
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{
-              width: 128,
-              height: 193,
-              backgroundImage: `url(${bookCover})`
-            }}
-            >
+            <div className="book-cover" style={style}>
             </div>
             <div className="book-shelf-changer">
               <select

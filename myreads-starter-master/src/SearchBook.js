@@ -29,11 +29,9 @@ class SearchBook extends Component {
             books: []
           });
         } else {
-          data.map(item => (
-            BooksAPI.get(item.id).then(data => this.setState(state => ({
-              books: state.books.concat([data])
-            })))
-          ))
+          this.setState({
+            books: data
+          });
         }
       })
     }
