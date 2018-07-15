@@ -6,7 +6,6 @@ import Book from './Book'
 class SearchBook extends Component {
 
   state = {
-    query: '',
     books: []
   };
 
