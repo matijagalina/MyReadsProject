@@ -9,6 +9,6 @@ This will open a new view with an input field where the user can search for the 
 After book rendering based on the search term, user can select and sent books to the desired shelf by chosing
 the shelf from dropdown menu on the book.
 
-To start the project clone the repository, instal dependencies by using 'npm install' and the 'npm start to build the
+To start the project clone the repository, instal dependencies by using `npm install` and the `npm start` to build the
 React code. Thil will open local server on port 3000 (http://localhost:3000/) which will automaticlly open
 on the last active browser.
