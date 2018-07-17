@@ -9,20 +9,13 @@ class SearchBook extends Component {
     books: []
   };
 
-  handleInput(value) {
-    this.setState({
-      query: value
-    });
-    this.fetchBooks()
-  }
-
   sendShelfChange(book, shelf) {
     this.props.sendShelfChange(book, shelf)
   }
 
-  fetchBooks() {
-    if (!!this.state.query) {
-      BooksAPI.search(this.state.query).then(data => {
+  fetchBooks(query) {
+    if (!!query) {
+      BooksAPI.search(query).then(data => {
         if (!!data.error) {
           this.setState({
             books: []
@@ -38,7 +31,7 @@ class SearchBook extends Component {
 
   render() {
 
-    const { query, books } = this.state;
+    const {books } = this.state;
 
     return (
       <div className="search-books">
@@ -48,14 +41,13 @@ class SearchBook extends Component {
             <input
               type="text"
               placeholder="Search by title or author"
-              value={query}
-              onChange={(event) => this.handleInput(event.target.value)} />
+              onChange={(event) => this.fetchBooks(event.target.value)} />
           </div>
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
             {
-              (!!query && books.length !== 0) && books.map((book, index) => (
+              books.length !== 0 && books.map((book, index) => (
                 <Book key={index} book={book} sendShelfChange={(book, shelf) => {this.sendShelfChange(book, shelf)}}/>
               ))
             }
