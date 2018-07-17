@@ -21,9 +21,17 @@ class SearchBook extends Component {
             books: []
           });
         } else {
+          let checkForShelfs = data.map(book => {
+            for (var i = 0; i < this.props.shelfedBooks.length; i++) {
+              if (this.props.shelfedBooks[i].id === book.id) {
+                book.shelf = this.props.shelfedBooks[i].shelf;
+              }
+            }
+            return book;
+          })
           this.setState({
-            books: data
-          });
+            books: checkForShelfs
+          })
         }
       })
     }

@@ -7,8 +7,7 @@ import BookShelf from './BookShelf';
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
-    query: ''
+    books: []
   }
 
   componentDidMount() {
@@ -17,8 +16,6 @@ class BooksApp extends React.Component {
         books: data
       }))
   }
-
-
 
   handleShelfChange(book, shelf) {
     BooksAPI.update(book, shelf)
@@ -40,11 +37,8 @@ class BooksApp extends React.Component {
       <div className="app">
         <Route path="/search" render={({ history }) => (
           <SearchBook
-          searchedValue = {(value) => this.setState({
-            query: value
-          })}
-          query = {this.state.query}
           sendShelfChange={(book, shelf) => { this.handleShelfChange(book, shelf) }}
+          shelfedBooks={this.state.books}
           />
         )} />
         <Route exact path='/' render={({ history }) => (
