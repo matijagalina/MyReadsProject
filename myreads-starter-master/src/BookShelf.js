@@ -20,8 +20,8 @@ class BookShelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {
-              this.props.books.length > 0 && this.props.books.map((item, index) => (
-                <Book key={index} book={item} sendShelfChange={(book, shelf) => {this.sendShelfChange(book, shelf)}}/>
+              this.props.books.length > 0 && this.props.books.map((item) => (
+                <Book key={item.id} book={item} sendShelfChange={(book, shelf) => {this.sendShelfChange(book, shelf)}}/>
               ))
             }
           </ol>
